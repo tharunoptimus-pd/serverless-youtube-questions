@@ -76,6 +76,15 @@ def api():
     questions = get_responses(array)
     return jsonify(questions)
 
+@app.route('/captions', methods=['GET'])
+@cross_origin()
+def captions():
+    youtube_video_id = request.args.get('youtubeVideoId')
+    if youtube_video_id is None:
+        return "No youtube video id provided"
+    sentences = get_transcript(youtube_video_id, True)
+    return jsonify(sentences)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
