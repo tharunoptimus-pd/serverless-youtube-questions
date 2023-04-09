@@ -3,6 +3,15 @@ from flask_cors import CORS, cross_origin
 from youtube_transcript_api import YouTubeTranscriptApi
 import requests
 
+def replace_hyphens(string_with_hyphens):
+  return string_with_hyphens.replace("-", "")
+
+def join_strings(string_array):
+  return " ".join(string_array)
+
+def beautify_cc(array):
+  return replace_hyphens(join_strings(array))
+
 def get_transcript(video_id):
     
     try:
