@@ -3,6 +3,12 @@ from flask_cors import CORS, cross_origin
 from youtube_transcript_api import YouTubeTranscriptApi
 import requests
 
+def array_fi(array):
+    newArray = []
+    for item in array:
+        newArray.append(item["text"])
+    return newArray
+
 def replace_hyphens(string_with_hyphens):
   return string_with_hyphens.replace("-", "")
 
@@ -19,11 +25,6 @@ def get_transcript(video_id):
     except:
         srt = YouTubeTranscriptApi.get_transcript(video_id, languages=['en-US'])    
 
-    def array_fi(array):
-        newArray = []
-        for item in array:
-            newArray.append(item["text"])
-        return newArray
     return array_fi(srt)
 
 def get_sentences(text, num_of_sentences=5):
