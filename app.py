@@ -57,16 +57,12 @@ def get_responses(array):
 
 app = Flask(__name__)
 
-# @app.after_request
-# def after_request(response):
-#     response.headers.add('Access-Control-Allow-Origin', '*')
-#     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-#     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-#     return response
-
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST', 'GET'])
 @cross_origin()
 def api():
+    if request.method == 'GET':
+        return "It is working"
+
     data = request.get_json()
     youtube_video_id = data["youtubeVideoId"]
     sentences = get_transcript(youtube_video_id)
@@ -74,19 +70,6 @@ def api():
 
     questions = get_responses(array)
     return jsonify(questions)
-
-# test endpoint that console logs the post data
-@app.route('/test', methods=['GET'])
-@cross_origin()
-def test():
-    data = request.get_json()
-    print(data)
-    return jsonify(data)
-
-@app.route('/any', methods=['GET'])
-@cross_origin()
-def anymethod():
-    return "IT is working"
 
 
 if __name__ == '__main__':
