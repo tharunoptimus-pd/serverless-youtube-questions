@@ -47,13 +47,6 @@ def get_responses(array):
         }).json()
         questions_array.append(response["data"][0])
     return questions_array
-        
-
-# youtube_video_id = '-UrdExQW0cs'
-
-# sentences = get_transcript(youtube_video_id)
-
-# array = get_sentences(sentences)
 
 app = Flask(__name__)
 
