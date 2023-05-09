@@ -80,9 +80,14 @@ def api():
 @cross_origin()
 def captions():
     youtube_video_id = request.args.get('youtubeVideoId')
+    beautify = request.args.get("beautify")
+    
+    if beautify is None:
+        beautify = True
     if youtube_video_id is None:
         return "No youtube video id provided"
-    sentences = get_transcript(youtube_video_id, True)
+    
+    sentences = get_transcript(youtube_video_id, beautify)
     return jsonify(sentences)
 
 
